@@ -2,6 +2,7 @@ import os
 import random
 import hashlib
 from typing import Any, Dict, Optional
+from time import time
 from functools import lru_cache
 from urllib.parse import urlencode
 import httpx
@@ -17,8 +18,11 @@ class Config(BaseSettings):
         env_file_encoding = 'utf-8'
 
     cloudimg_io_token: str = None
+    cloudimg_io_timeout: float = 300.0  # convert image timeout
+    cloudimg_io_quality: int = 85
     image_dir: str = None
     cache_dir: str = './cache'
+    cache_ttl: float = 300.0
 
 
 config = Config()
@@ -36,16 +40,16 @@ def getImageUrl(domain: str, img: str) -> str:
             height=1080,
             sharp=1,
             force_format='webp',
-            q=85,
+            q=config.cloudimg_io_quality,
         ))
 
 
-@lru_cache()
+#@lru_cache()
 def md5(v: str) -> str:
     return hashlib.md5(v.encode()).hexdigest()
 
 
-@lru_cache()
+@lru_cache(maxsize=1)
 def getImages(*, cache_ttl: Optional[Any] = None) -> Dict[str, str]:
     # cloudimg.io 如果缺少副檔有機率出現錯誤
     return {
@@ -58,7 +62,8 @@ def getImages(*, cache_ttl: Optional[Any] = None) -> Dict[str, str]:
 
 @app.get('/random')
 async def _random():
-    img_hash = random.choice(list(getImages().keys()))
+    cache_ttl = int(time() / config.cache_ttl)
+    img_hash = random.choice(list(getImages(cache_ttl=cache_ttl).keys()))
     url_path = f'/img/{img_hash}'
     return RedirectResponse(url_path, status_code=302)
 
@@ -89,7 +94,8 @@ async def _fetch(request: Request, img_hash: str):
     if not os.path.exists(cache_img_path):
         domain = request.headers.get('host', request.base_url.hostname)
         async with httpx.AsyncClient() as client:
-            res = await client.get(getImageUrl(domain, img_hash), timeout=180)
+            res = await client.get(getImageUrl(domain, img_hash),
+                                   timeout=config.cloudimg_io_timeout)
             res.raise_for_status()
 
             tmp_file = cache_img_path + '.tmp'
