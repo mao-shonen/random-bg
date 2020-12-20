@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+  </head>
+
+  <body>
+    <div id="app">
+      <v-app>
+        <!-- <v-main :style="{background: `url(${})`}"> -->
+        <v-main>
+          <v-img :src="bg_url" max-width="100vw" max-height="100vh">
+            <template v-slot:placeholder>
+              <v-row class="fill-height ma-0" align="center" justify="center">
+                <v-progress-circular
+                  indeterminate
+                  color="blue"
+                  :size="100"
+                  :width="7"
+                ></v-progress-circular>
+              </v-row>
+            </template>
+
+            <v-progress-linear
+              :value="Math.round(count_down / count_down_default * 100)"
+              dark
+              height="25"
+            >
+              <span v-text="`Refresh after ${count_down} seconds`" />
+            </v-progress-linear>
+          </v-img>
+        </v-main>
+      </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+
+        data: () => {
+          return {
+            bg_url: "",
+
+            count_down: 0,
+            count_down_default: 15,
+          };
+        },
+
+        mounted() {
+          this.updateBackground();
+          setInterval(() => {
+            this.count_down -= 1;
+            //使用小於0讓倒數0停1秒
+            if (this.count_down < 0) {
+              this.updateBackground();
+            }
+          }, 1000);
+        },
+
+        methods: {
+          updateBackground() {
+            this.bg_url = `/random?t=${Date.now()}`;
+            this.count_down = this.count_down_default;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

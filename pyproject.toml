@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "random-bg"
+version = "0.1.0"
+description = ""
+authors = ["魔王少年 <q267009886.work@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+fastapi = "^0.62.0"
+uvicorn = "^0.13.2"
+aiofiles = "^0.6.0"
+httpx = "^0.16.1"
+python-dotenv = "^0.15.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
