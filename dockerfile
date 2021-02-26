@@ -1,4 +1,4 @@
-FROM q267009886/fastapi-poetry:python3.7
+FROM q267009886/fastapi-poetry:python3.7-alpine3.8
 
 WORKDIR /app
 
