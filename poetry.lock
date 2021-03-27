@@ -55,8 +55,8 @@ typing_extensions = ["typing-extensions (>=3.7.2)"]
 
 [[package]]
 name = "python-dotenv"
-version = "0.15.0"
-description = "Add .env support to your django/flask apps in development and deployments"
+version = "0.16.0"
+description = "Read key-value pairs from a .env file and set them as environment variables"
 category = "main"
 optional = false
 python-versions = "*"
@@ -102,7 +102,7 @@ standard = ["websockets (>=8.0.0,<9.0.0)", "watchgod (>=0.6)", "python-dotenv (>
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "111ca8d5f8899fb6592f6a9c745143ff8154c1607b6533e3207e898005d58c68"
+content-hash = "70458b940720abe9b6ab03969ac711e6b2dc4ec95497835a30b6e0bdea3bea45"
 
 [metadata.files]
 aiofiles = [
@@ -146,8 +146,8 @@ pydantic = [
     {file = "pydantic-1.7.3.tar.gz", hash = "sha256:213125b7e9e64713d16d988d10997dabc6a1f73f3991e1ff8e35ebb1409c7dc9"},
 ]
 python-dotenv = [
-    {file = "python-dotenv-0.15.0.tar.gz", hash = "sha256:587825ed60b1711daea4832cf37524dfd404325b7db5e25ebe88c495c9f807a0"},
-    {file = "python_dotenv-0.15.0-py2.py3-none-any.whl", hash = "sha256:0c8d1b80d1a1e91717ea7d526178e3882732420b03f08afea0406db6402e220e"},
+    {file = "python-dotenv-0.16.0.tar.gz", hash = "sha256:9fa413c37d4652d3fa02fea0ff465c384f5db75eab259c4fc5d0c5b8bf20edd4"},
+    {file = "python_dotenv-0.16.0-py2.py3-none-any.whl", hash = "sha256:31d752f5b748f4e292448c9a0cac6a08ed5e6f4cefab85044462dcad56905cec"},
 ]
 starlette = [
     {file = "starlette-0.13.6-py3-none-any.whl", hash = "sha256:bd2ffe5e37fb75d014728511f8e68ebf2c80b0fa3d04ca1479f4dc752ae31ac9"},
