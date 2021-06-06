@@ -7,7 +7,7 @@ authors = ["魔王少年 <q267009886.work@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.7"
 fastapi = "^0.63.0"
-uvicorn = "^0.13.2"
+uvicorn = "^0.14.0"
 aiofiles = "^0.6.0"
 python-dotenv = "^0.16.0"
 
